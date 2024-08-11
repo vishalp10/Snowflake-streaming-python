@@ -26,13 +26,13 @@ Before executing the notebook, ensure that you have the following prerequisites 
 #### Step 1: Set up the Snowflake Account and Database:
 To begin, make sure you have a Snowflake account. If you don't have one, sign up for a free trial or set up a production account. Once you have access to Snowflake, create a database, a schema and tables to which you'll stream the MySQL data. Following are examples of databases, schemas and tables that I’ve used in this ingestion workflow - 
 
-<img width="252" alt="image" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/c692536b-f4c9-4685-9b02-45615f88f9a8">
+![image](https://github.com/user-attachments/assets/c89ccb80-8031-4f1c-8e15-8e7fb2e3cc42)
 
 My source data for this POC is MySQL hosted on Azure and I had uploaded some sample people data into a database snowpark_demodb. Following is the schema and some sample records from my source table in MySQL database.
- 
-<img width="225" alt="image" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/5c48c43d-062d-419a-9feb-1724af1ac9e0">
 
-<img width="468" alt="image" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/41aaaf19-16e5-4815-91ba-d75a4b0504dd">
+![image](https://github.com/user-attachments/assets/7a0250b3-22bf-4506-bc44-db46a04a5a24)
+
+![image](https://github.com/user-attachments/assets/9f751e2a-958f-4236-87fe-f48776567804)
 
 
 #### Step 2: Create a Conda environment with Python 3.8:
@@ -56,24 +56,22 @@ The main notebook reads the configurations for source database and destination s
 
 #### Step 4: Configure path to JAR files required to use the Streaming API SDK:
 
-<img width="468" alt="image" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/7bdbe4ea-76d3-43dc-9e39-b8fbc0908f23">
- 
+![image](https://github.com/user-attachments/assets/368b8a38-a40b-4958-abaf-9b62cab840dd)
 
 #### Step 5: Set up MySQL Database Connection:
 Next, establish a connection to your MySQL database. You can use any Python library that supports MySQL, such as `mysql-connector-python`, to connect to MySQL. Ensure that you have the necessary credentials (host, port, username, password, database name) to connect to the MySQL database.
 
-<img width="468" alt="image" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/8d0772dc-4283-409e-acc7-61ea4463fb59">
- 
+![image](https://github.com/user-attachments/assets/3dd38a94-e61f-496b-a4a5-5a44ebc5bddb)
 
 #### Step 6: Set up the Snowflake Streaming Ingest API Connection:
 In order to use the Snowflake Streaming Ingest API, you first need to authenticate and establish a secure connection to Snowflake. Follow these steps below to set up a connection and to create a secure client to stream data directly into a Snowflake table.
  
- <img width="468" alt="image" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/74d9d246-07af-4839-8ea5-8ca7fb3ae490">
-
+![image](https://github.com/user-attachments/assets/98f51aae-b92c-4f02-9c73-bf921b673748)
+ 
 #### Step 7: Prepare a payload for streaming:
 The payload that is streamed into snowflake needs to be packaged as a Java hashmap, so create a hashmap that contains values for all the columns in the destination table as shown below – 
  
-<img width="468" alt="image" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/9b21b7a0-2296-4019-8b56-4d5aea60518f">
+![image](https://github.com/user-attachments/assets/ce21fc1f-7864-4cf4-b9b1-f77d62d00b42)
   
 Snowflake’s Streaming API supports both single row inserts and bulk inserts
 
@@ -82,18 +80,18 @@ Snowflake’s Streaming API supports both single row inserts and bulk inserts
 #### Step 8: Use Snowpark to perform data quality checks:
 Connect to your Snowflake account using Snowpark and validate that all the records from the source MySQL table were successfully ingested into the destination table in Snowflake.
 
-<img width="468" alt="image" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/5869c72f-bdc5-4cfe-bf79-3fa7b667e54e">
+![image](https://github.com/user-attachments/assets/42f727f4-3e07-49c0-a0a5-9dfeaed9acfe)
 
 #### Step 9: Transform the raw data and create gold tables using Snowpark:
 In my ingestion workflow, I am ingesting customer_id, email, phone number, and date of birth information into Snowflake. The phone number data needs some formatting, and the date of birth column needs to be converted from a varchar to a date type.
 
 To transform the phone column into a standard format, I created a Python UDF called "parse_phone_no" and uploaded this function to a stage area within my Snowflake database. The code for uploading the UDF has been commented and is saved within the main notebook.
 
-<img width="973" alt="Screenshot 2023-05-23 at 9 20 07 PM" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/3943d11d-e2ed-49a0-a735-6596278a64b4">
+![image](https://github.com/user-attachments/assets/908612a5-fe3f-48fd-a6a5-0e0c2c6d81cb)
 
 I then call this UDF in my Snowpark SQL command to transform the raw data into a final gold table, which can be used for downstream analytics.
 
-<img width="976" alt="Screenshot 2023-05-23 at 9 20 30 PM" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/43a5c116-14cb-487b-ad78-3b48fdcde4b7">
+![image](https://github.com/user-attachments/assets/a004c3f0-7e2a-44d3-b3e7-2704c4c540b7)
 
 **The entire process, including extraction of 500K records from MySQL, loading to Snowflake, and transformation, took approximately 60 seconds to complete on my local laptop**. However, please note that I was reading data from an Azure cloud database to my local machine and then ingesting it into a Snowflake database on AWS. If this code is executed inside a container on Azure, the total execution time might be in single-digit seconds.
 
