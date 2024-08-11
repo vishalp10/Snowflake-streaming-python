@@ -10,11 +10,11 @@ For additional background, please refer to my article on [medium](https://medium
 
 
 #### Current Architecture of My Python application:
-![image](https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/3d1bb92e-99f2-4f48-b875-bc14907064d2)
+![image](https://github.com/user-attachments/assets/f2fe8132-c336-4648-8751-210d2b5281bf)
 
 
 #### Potential Future State Architecture:
-<img width="1267" alt="Screenshot 2023-05-22 at 7 22 24 PM" src="https://github.com/vishalp9758/snowflake-streaming-api-python/assets/121073802/b6f01ef9-8bbc-4862-aae9-fbb600b54d33">
+![image](https://github.com/user-attachments/assets/5a780a05-2a91-4188-9157-a1750a963b4b)
 
 
 #### Prerequisites for running this notebook:
