@@ -1,0 +1,24 @@
+{
+  "user": "ABCD",
+  "url": "https://xxxxx.snowflakecomputing.com:443",
+  "account": "ABCD",
+  "private_key": "XYZ",
+  "port": "443",
+  "host": "xxxxx.aws.snowflakecomputing.com",
+  "schema": "DEV",
+  "scheme": "https",
+  "database": "SNOWPIPE_STREAMING",
+  "table": "sf_customer_raw",
+  "connection_string": "jdbc:snowflake://xxxxx.aws.snowflakecomputing.com:443",
+  "warehouse": "KAFKA_WH",
+  "role": "accountadmin",
+  "azuresql_url": "abcd.windows.net",
+  "azuresql_user": "ABCD",
+  "azuresql_pwd": "ABCD",
+  "azuresql_database": "adf_demo",
+  "mysql_url": "abcd.mysql.database.azure.com",
+  "mysql_user": "ABCD",
+  "mysql_pwd": "ABCD",
+  "mysql_database": "snowpark_demodb"    
+} 
+  
